@@ -1,0 +1,872 @@
+/* AgroAI Disease Detection — App.css */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
+
+/* ── Design tokens ── */
+:root {
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-200: #bbf7d0;
+  --green-300: #86efac;
+  --green-400: #4ade80;
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --green-700: #15803d;
+  --green-800: #166534;
+  --green-900: #14532d;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --white: #ffffff;
+  --error: #b91c1c;
+  --error-bg: #fef2f2;
+
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(22, 101, 52, 0.08);
+  --shadow-lg: 0 20px 50px rgba(22, 101, 52, 0.1);
+  --shadow-card: 0 4px 20px rgba(15, 23, 42, 0.06);
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  --glass: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.95);
+
+  --transition-fast: 0.18s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --nav-height: 64px;
+  --section-pad-y: 3rem;
+}
+
+/* ── Scoped reset ── */
+.agro-app,
+.agro-app *,
+.agro-app *::before,
+.agro-app *::after {
+  box-sizing: border-box;
+}
+
+.agro-app {
+  margin: 0;
+  padding: 0;
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 16px;
+  color: var(--slate-900);
+  background: linear-gradient(
+    180deg,
+    var(--green-50) 0%,
+    var(--white) 22%,
+    var(--slate-50) 100%
+  );
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.agro-app img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.agro-app button {
+  font-family: inherit;
+}
+
+.agro-app button:focus-visible,
+.agro-app label:focus-within {
+  outline: 2px solid var(--green-500);
+  outline-offset: 2px;
+}
+
+/* ── Layout ── */
+.agro-app .container {
+  width: min(1120px, 92vw);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.agro-app section {
+  padding-block: var(--section-pad-y);
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+/* ── Navbar ── */
+.agro-app .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--glass);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: var(--shadow-xs);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: navbar-enter 0.5s ease;
+}
+
+@keyframes navbar-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agro-app .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: var(--nav-height);
+  padding-block: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.agro-app .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--green-800);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.agro-app .brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--green-500), var(--green-700));
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base);
+}
+
+.agro-app .brand:hover .brand-icon {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+.agro-app .nav-links {
+  display: none;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.agro-app .nav-links button {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-full);
+  color: var(--slate-600);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.agro-app .nav-links button:hover {
+  background: var(--green-100);
+  color: var(--green-800);
+}
+
+.agro-app .nav-links button:active {
+  transform: scale(0.97);
+}
+
+.agro-app .lang-switch {
+  display: flex;
+  gap: 0.2rem;
+  background: var(--white);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-full);
+  padding: 0.2rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.agro-app .lang-switch button {
+  border: none;
+  background: transparent;
+  padding: 0.38rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--slate-500);
+  transition: background var(--transition-fast), color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.agro-app .lang-switch button:hover:not(.active) {
+  background: var(--green-50);
+  color: var(--green-700);
+}
+
+.agro-app .lang-switch button.active {
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.35);
+}
+
+/* ── Hero ── */
+.agro-app .hero {
+  padding-block: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.agro-app .hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: min(480px, 80vw);
+  height: min(480px, 80vw);
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.agro-app .hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.agro-app .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: var(--green-100);
+  color: var(--green-800);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border: 1px solid var(--green-200);
+  animation: fade-up 0.6s ease 0.1s both;
+}
+
+.agro-app .hero h1 {
+  font-size: clamp(1.85rem, 6vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--green-900);
+  margin-bottom: 0.85rem;
+  animation: fade-up 0.6s ease 0.2s both;
+}
+
+.agro-app .hero p {
+  color: var(--slate-500);
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  max-width: 34rem;
+  margin-bottom: 1.5rem;
+  animation: fade-up 0.6s ease 0.3s both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.agro-app .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-base),
+    opacity var(--transition-fast);
+  animation: fade-up 0.6s ease 0.4s both;
+}
+
+.agro-app .btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.agro-app .btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.agro-app .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.agro-app .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid var(--green-200);
+  background: var(--white);
+  color: var(--green-800);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+    transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.agro-app .btn-secondary:hover {
+  background: var(--green-50);
+  border-color: var(--green-400);
+  box-shadow: var(--shadow-sm);
+}
+
+.agro-app .btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.agro-app .hero-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: fade-up 0.7s ease 0.35s both;
+}
+
+.agro-app .hero-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+.agro-app .stat {
+  text-align: center;
+  padding: 1rem 0.75rem;
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid var(--green-100);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.agro-app .stat:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--green-200);
+}
+
+.agro-app .stat strong {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--green-700);
+  line-height: 1.2;
+}
+
+.agro-app .stat span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Section headings ── */
+.agro-app .section-head {
+  text-align: center;
+  max-width: 36rem;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+
+.agro-app .section-head h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.agro-app .section-head p {
+  color: var(--slate-500);
+  font-size: 0.95rem;
+}
+
+/* ── Features ── */
+.agro-app .features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.agro-app .feature-card {
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.agro-app .feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-200);
+}
+
+.agro-app .feature-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--green-100), var(--green-50));
+  border: 1px solid var(--green-200);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.9rem;
+  transition: transform var(--transition-base);
+}
+
+.agro-app .feature-card:hover .feature-icon {
+  transform: scale(1.08);
+}
+
+.agro-app .feature-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--green-900);
+}
+
+.agro-app .feature-card p {
+  font-size: 0.88rem;
+  color: var(--slate-500);
+  line-height: 1.55;
+}
+
+/* ── Detection panel ── */
+.agro-app .detect-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.agro-app .card {
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-base);
+}
+
+.agro-app .card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.agro-app .card h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--green-900);
+  margin-bottom: 0.3rem;
+}
+
+.agro-app .card .muted {
+  font-size: 0.86rem;
+  color: var(--slate-500);
+  margin-bottom: 1.1rem;
+  line-height: 1.5;
+}
+
+/* ── Upload zone ── */
+.agro-app .upload-zone {
+  display: block;
+  border: 2px dashed var(--green-200);
+  border-radius: var(--radius);
+  padding: 1.75rem 1rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--green-50), var(--white));
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: border-color var(--transition-base), background var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.agro-app .upload-zone:hover {
+  border-color: var(--green-400);
+  background: var(--green-100);
+}
+
+.agro-app .upload-zone:focus-within {
+  border-color: var(--green-500);
+  background: var(--green-50);
+}
+
+.agro-app .upload-zone input {
+  display: none;
+}
+
+.agro-app .upload-zone .btn-secondary {
+  pointer-events: none;
+}
+
+/* ── Preview ── */
+.agro-app .preview-box {
+  margin-top: 0.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--slate-100);
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--slate-200);
+}
+
+.agro-app .preview-box img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  animation: preview-in 0.4s ease;
+}
+
+@keyframes preview-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.agro-app .preview-placeholder {
+  color: var(--slate-400);
+  font-size: 0.88rem;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* ── Actions & loading ── */
+.agro-app .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.agro-app .actions .btn-primary,
+.agro-app .actions .btn-secondary {
+  flex: 1 1 auto;
+  min-width: min(100%, 140px);
+}
+
+.agro-app .error-msg {
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--error-bg);
+  color: var(--error);
+  font-size: 0.86rem;
+  font-weight: 500;
+  border: 1px solid #fecaca;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.agro-app .loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.agro-app .spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Results ── */
+.agro-app .result-disease {
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+  font-weight: 700;
+  color: var(--green-800);
+  margin: 0.35rem 0 1rem;
+  word-break: break-word;
+  line-height: 1.3;
+  animation: fade-up 0.45s ease;
+}
+
+.agro-app .confidence-bar-wrap {
+  margin-bottom: 1.15rem;
+}
+
+.agro-app .confidence-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  margin-bottom: 0.45rem;
+}
+
+.agro-app .confidence-bar {
+  height: 10px;
+  background: var(--slate-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.agro-app .confidence-fill {
+  height: 100%;
+  min-width: 2%;
+  background: linear-gradient(90deg, var(--green-400), var(--green-700));
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.35);
+}
+
+.agro-app .info-block {
+  margin-bottom: 0.85rem;
+  padding: 1rem 1.05rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--green-50), var(--white));
+  border: 1px solid var(--green-100);
+  transition: border-color var(--transition-fast);
+}
+
+.agro-app .info-block:hover {
+  border-color: var(--green-200);
+}
+
+.agro-app .info-block h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--green-700);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.agro-app .info-block p {
+  font-size: 0.9rem;
+  color: var(--slate-700);
+  line-height: 1.55;
+}
+
+.agro-app .empty-result {
+  text-align: center;
+  padding: 2.25rem 1rem;
+  color: var(--slate-400);
+  font-size: 0.92rem;
+  border: 1px dashed var(--slate-200);
+  border-radius: var(--radius);
+  background: var(--slate-50);
+  margin-top: 0.5rem;
+}
+
+/* ── About ── */
+.agro-app .about-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.agro-app .about-card h2 {
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: var(--green-900);
+  letter-spacing: -0.02em;
+}
+
+.agro-app .about-card p {
+  color: var(--slate-500);
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ── Footer ── */
+.agro-app .footer {
+  border-top: 1px solid var(--slate-200);
+  padding-block: 1.5rem 2rem;
+  text-align: center;
+  color: var(--slate-500);
+  font-size: 0.86rem;
+  background: var(--white);
+}
+
+.agro-app .footer .container {
+  line-height: 1.5;
+}
+
+/* ── Tablet (640px+) ── */
+@media (min-width: 640px) {
+  :root {
+    --section-pad-y: 3.25rem;
+  }
+
+  .agro-app .hero {
+    padding-block: 3rem 2.5rem;
+  }
+
+  .agro-app .hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .agro-app .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.15rem;
+  }
+
+  .agro-app .preview-box {
+    min-height: 220px;
+  }
+
+  .agro-app .preview-box img {
+    max-height: 300px;
+  }
+
+  .agro-app .actions .btn-primary {
+    flex: 0 1 auto;
+  }
+}
+
+/* ── Desktop (768px+) ── */
+@media (min-width: 768px) {
+  .agro-app .nav-links {
+    display: flex;
+  }
+
+  .agro-app .nav-inner {
+    flex-wrap: nowrap;
+  }
+
+  .agro-app .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5rem;
+  }
+
+  .agro-app .hero {
+    padding-block: 4rem 3.25rem;
+  }
+
+  .agro-app .detect-panel {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .agro-app .card {
+    padding: 1.5rem;
+  }
+
+  .agro-app .upload-zone {
+    padding: 2rem 1.25rem;
+  }
+}
+
+/* ── Large desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  :root {
+    --section-pad-y: 3.5rem;
+  }
+
+  .agro-app .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .agro-app .hero-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .agro-app .feature-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .agro-app *,
+  .agro-app *::before,
+  .agro-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
